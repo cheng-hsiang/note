@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script>
+        //設計組件
+        class newcom extends React.Component {
+            render() {   
+                return React.createElement("H1", null, `"hello"${this.props.level}`)
+            }
+        }  
+
+        class newcomList extends React.Component{
+            constructor(params) {
+                super(params);
+                this.state={maxLevel:3};
+                setTimeout(()=>{
+                    // this.setState({maxLevel:6})
+                    this.setState((currentState,currentProps)=>({maxLevel:currentState.maxLevel+1}));
+                },2000);
+            }
+            render(){
+                let heads = [];
+                let head ;
+                for(let i = 1;i<this.state.maxLevel;i++){
+                    head = React.createElement(newcom,{level:i});
+                    heads.push(head);
+                }
+                return React.createElement("DIV",null,heads)
+            }
+        }
+        window.addEventListener("load", () => {
+            //建立組件實體
+            let myComponent = React.createElement(newcomList, null); //把屬性傳進組建裏
+            //將組建實體放進容器中渲染出來
+            ReactDOM.render(myComponent, document.body);
+        });
+    </script>
+</head>
+
+<body>
+
+
+
+</body>
+
+</html>
